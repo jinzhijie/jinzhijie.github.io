@@ -758,3 +758,8 @@ a {
   font-size: 16px;
   margin: 4px 8px;
 }
+
+      .sidebar {
+        background-image: url(https://api.kagurazakaeri.com/bing/cache);
+      }
+    
