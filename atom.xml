@@ -1,19 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://blog.xiaojin233.cn</id>
-    <title>Gridea</title>
-    <updated>2020-04-13T07:43:17.895Z</updated>
+    <title>Xiao_Jin&apos;s Blog</title>
+    <updated>2020-04-13T07:49:08.575Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://blog.xiaojin233.cn"/>
     <link rel="self" href="https://blog.xiaojin233.cn/atom.xml"/>
-    <subtitle>温故而知新</subtitle>
+    <subtitle>记录生活，分享有趣</subtitle>
     <logo>https://blog.xiaojin233.cn/images/avatar.png</logo>
     <icon>https://blog.xiaojin233.cn/favicon.ico</icon>
-    <rights>All rights reserved 2020, Gridea</rights>
+    <rights>All rights reserved 2020, Xiao_Jin&apos;s Blog</rights>
+    <entry>
+        <title type="html"><![CDATA[关于]]></title>
+        <id>https://blog.xiaojin233.cn/about/</id>
+        <link href="https://blog.xiaojin233.cn/about/">
+        </link>
+        <updated>2019-01-25T11:09:48.000Z</updated>
+    </entry>
     <entry>
         <title type="html"><![CDATA[Hello Gridea]]></title>
-        <id>https://blog.xiaojin233.cn/post/hello-gridea/</id>
-        <link href="https://blog.xiaojin233.cn/post/hello-gridea/">
+        <id>https://blog.xiaojin233.cn/hello-gridea/</id>
+        <link href="https://blog.xiaojin233.cn/hello-gridea/">
         </link>
         <updated>2018-12-11T16:00:00.000Z</updated>
         <summary type="html"><![CDATA[<p>👏  欢迎使用 <strong>Gridea</strong> ！<br>

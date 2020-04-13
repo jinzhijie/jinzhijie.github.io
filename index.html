@@ -3,12 +3,12 @@
   <head>
     <meta charset="utf-8" >
 
-<title>Gridea</title>
+<title>Xiao_Jin&#39;s Blog</title>
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-<link rel="shortcut icon" href="https://blog.xiaojin233.cn/favicon.ico?v=1586763793148">
+<link rel="shortcut icon" href="https://blog.xiaojin233.cn/favicon.ico?v=1586764142106">
 <link rel="stylesheet" href="https://blog.xiaojin233.cn/styles/main.css">
 
 
@@ -18,7 +18,9 @@
 
 
 
-    <meta name="description" content="温故而知新">
+    <meta name="description" content="记录生活，分享有趣">
+    
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
     
   </head>
   <body>
@@ -28,8 +30,8 @@
   <div class="top-container" data-aos="fade-right">
     <div class="top-header-container">
       <a class="site-title-container" href="https://blog.xiaojin233.cn">
-        <img src="https://blog.xiaojin233.cn/images/avatar.png?v=1586763793148" class="site-logo">
-        <h1 class="site-title">Gridea</h1>
+        <img src="https://blog.xiaojin233.cn/images/avatar.png?v=1586764142106" class="site-logo">
+        <h1 class="site-title">Xiao_Jin&#39;s Blog</h1>
       </a>
       <div class="menu-btn" @click="menuVisible = !menuVisible">
         <div class="line"></div>
@@ -56,7 +58,7 @@
         
       
         
-          <a href="/post/about" class="site-nav">
+          <a href="/about" class="site-nav">
             关于
           </a>
         
@@ -66,6 +68,10 @@
   <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
     <div class="social-container">
       
+        
+          <a class="social-link" href="https://github.com/jinzhijie" target="_blank">
+            <i class="fab fa-github"></i>
+          </a>
         
       
         
@@ -78,7 +84,7 @@
       
     </div>
     <div class="site-description">
-      温故而知新
+      记录生活，分享有趣
     </div>
     <div class="site-footer">
       Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://blog.xiaojin233.cn/atom.xml" target="_blank">RSS</a>
@@ -92,7 +98,22 @@
           
             <article class="post-item">
               <div class="left">
-                <a href="https://blog.xiaojin233.cn/post/hello-gridea/">
+                <a href="https://blog.xiaojin233.cn/about/">
+                  <h2 class="post-title">关于</h2>
+                </a>
+                <div class="post-date">
+                  2019-01-25
+                </div>
+                <div class="post-abstract">
+                  
+                </div>
+              </div>
+              
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="https://blog.xiaojin233.cn/hello-gridea/">
                   <h2 class="post-title">Hello Gridea</h2>
                 </a>
                 <div class="post-date">
@@ -105,7 +126,7 @@
                 </div>
               </div>
               
-                <a class="right" href="https://blog.xiaojin233.cn/post/hello-gridea/">
+                <a class="right" href="https://blog.xiaojin233.cn/hello-gridea/">
                   <div class="feature-container" style="background-image: url('https://blog.xiaojin233.cn/post-images/hello-gridea.png')">
                   </div>
                 </a>
@@ -136,6 +157,11 @@ var app = new Vue({
 
 </script>
 
+
+  <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>
+    hljs.initHighlightingOnLoad()
+  </script>
 
 
 
