@@ -8,7 +8,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-<link rel="shortcut icon" href="https://blog.xiaojin233.cn/favicon.ico?v=1586844141310">
+<link rel="shortcut icon" href="https://blog.xiaojin233.cn/favicon.ico?v=1586844378918">
 <link rel="stylesheet" href="https://blog.xiaojin233.cn/styles/main.css">
 
 
@@ -36,7 +36,7 @@
   <div class="top-container" data-aos="fade-right">
     <div class="top-header-container">
       <a class="site-title-container" href="https://blog.xiaojin233.cn">
-        <img src="https://blog.xiaojin233.cn/images/avatar.png?v=1586844141310" class="site-logo">
+        <img src="https://blog.xiaojin233.cn/images/avatar.png?v=1586844378918" class="site-logo">
         <h1 class="site-title">Xiao_Jin&#39;s Blog</h1>
       </a>
       <div class="menu-btn" @click="menuVisible = !menuVisible">
@@ -116,8 +116,8 @@
 <p>大概在月初，手机一响，有人在空间里给我留言。我点开一看，二维码图片，内心狂喜。赶紧一扫，果然是一个盗号网站，马上把地址复制出来用电脑访问。</p>
 <hr>
 <h1 id="研究">研究</h1>
-<p>用浏览器访问，发现 404。这显然不科学嘛！但作为老练的我，马上就想到 UA 的问题。用 QQ 自带的 Webview 访问 httpbin，拿到 UA，粘贴到 via 里 <s>（via 打钱）</s>，再访问，还是不行。</p>
-<p>这我就纳闷了，太不科学了啊。但作为老练的我，又一次马上想到：这二维码的真实链接是什么？把图片发给电脑，找了一个二维码解码的网站，一解，把结果发回手机用 via 打开。果然这次没有 404 了，显示出了熟悉的 QQ空间 高仿界面，还自带危险键盘。佛了。</p>
+<p>用浏览器访问，发现 404。这显然不科学嘛！但菜鸡的我，马上就想到 UA 的问题。用 QQ 自带的 Webview 访问 httpbin，拿到 UA，粘贴到 via 里 <s>（via 打钱）</s>，再访问，还是不行。</p>
+<p>这我就纳闷了，太不科学了啊。炒鸡菜的我，又一次马上想到：这二维码的真实链接是什么？把图片发给电脑，找了一个二维码解码的网站，一解，把结果发回手机用 via 打开。果然这次没有 404 了，显示出了熟悉的 QQ空间 高仿界面，还自带危险键盘。佛了。</p>
 <p>随便输个 QQ 号，再输入祖传密码 <code>helloworld</code>。先打开 via 自带的网络日志（吹爆！），然后登录，果不其然跳转到了 QQ空间 官网。回到网络日志，看到一个 HTTP GET 请求，用户名密码明文传，都不加密的。</p>
 <blockquote>
 <p>http://cdn.tldcnm.com/dnf.php?u=1145141919&amp;p=helloworld</p>
