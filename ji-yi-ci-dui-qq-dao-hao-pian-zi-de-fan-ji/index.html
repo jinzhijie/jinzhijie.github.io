@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>记一次对 QQ 盗号骗子的反击 | Xiao_Jin&#39;s Blog</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://blog.xiaojin233.cn/favicon.ico?v=1586843049084">
+<link rel="stylesheet" href="https://blog.xiaojin233.cn/styles/main.css">
+
+
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+
+
+    <meta name="description" content="
+你看这盗号骗子笑得多开心啊，哈哈哈哈哈😆
+
+
+盗号嘛，各位或多或少遇到过，不少人也有亲身经历。一张带二维码的图片，一个奇怪的链接，都可能指向一个盗号网站。有的真假难辨，让用户们无法判断。
+在这里我要说的，就是我的亲身经历。
+
+发现
+大概..." />
+    <meta name="keywords" content="Python" />
+  </head>
+  <body>
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://blog.xiaojin233.cn">
+        <img src="https://blog.xiaojin233.cn/images/avatar.png?v=1586843049084" class="site-logo">
+        <h1 class="site-title">Xiao_Jin&#39;s Blog</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div>
+      
+        
+          <a href="/" class="site-nav">
+            首页
+          </a>
+        
+      
+        
+          <a href="/archives" class="site-nav">
+            归档
+          </a>
+        
+      
+        
+          <a href="/tags" class="site-nav">
+            标签
+          </a>
+        
+      
+        
+          <a href="/about" class="site-nav">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+    <div class="site-description">
+      记录生活，分享有趣
+    </div>
+    <div class="site-footer">
+      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://blog.xiaojin233.cn/atom.xml" target="_blank">RSS</a>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <div class="post-detail">
+            <h2 class="post-title">记一次对 QQ 盗号骗子的反击</h2>
+            <div class="post-date">2020-04-14</div>
+            
+              <div class="feature-container" style="background-image: url('https://blog.xiaojin233.cn/post-images/ji-yi-ci-dui-qq-dao-hao-pian-zi-de-fan-ji.png')">
+              </div>
+            
+            <div class="post-content" v-pre>
+              <blockquote>
+<p>你看这盗号骗子笑得多开心啊，哈哈哈哈哈😆</p>
+</blockquote>
+<hr>
+<p>盗号嘛，各位或多或少遇到过，不少人也有亲身经历。一张带二维码的图片，一个奇怪的链接，都可能指向一个盗号网站。有的真假难辨，让用户们无法判断。</p>
+<p>在这里我要说的，就是我的亲身经历。</p>
+<hr>
+<h1 id="发现">发现</h1>
+<p>大概在月初，手机一响，有人在空间里给我留言。我点开一看，二维码图片，内心狂喜。赶紧一扫，果然是一个盗号网站，马上把地址复制出来用电脑访问。</p>
+<hr>
+<h1 id="研究">研究</h1>
+<p>用浏览器访问，发现 404。这显然不科学嘛！但作为老练的我，马上就想到 UA 的问题。用 QQ 自带的 Webview 访问 httpbin，拿到 UA，粘贴到 via 里~~（via 打钱）~~，再访问，还是不行。</p>
+<p>这我就纳闷了，太不科学了啊。但作为老练的我，又一次马上想到：这二维码的真实链接是什么？把图片发给电脑，找了一个二维码解码的网站，一解，把结果发回手机用 via 打开。果然这次没有 404 了，显示出了熟悉的 QQ空间 高仿界面，还自带危险键盘。佛了。</p>
+<p>随便输个 QQ 号，再输入祖传密码 <code>helloworld</code>。先打开 via 自带的网络日志（吹爆！），然后登录，果不其然跳转到了 QQ空间 官网。回到网络日志，看到一个 HTTP GET 请求，用户名密码明文传，都不加密的。</p>
+<blockquote>
+<p>http://cdn.tldcnm.com/dnf.php?u=1145141919&amp;p=helloworld</p>
+</blockquote>
+<p>再次狂喜，URL 复制出来，发给电脑，写了个简单的 Python 脚本。<strong>给！他！填！库！</strong></p>
+<figure data-type="image" tabindex="1"><img src="https://blog.xiaojin233.cn/post-images/1586842820649.png" alt="简易脚本" loading="lazy"></figure>
+<hr>
+<h1 id="填库">填库</h1>
+<p>生成一个随机的 QQ 号，再生成一个 8~16 位的随机密码，定好线程数和延迟，奥利给！</p>
+<p><s>（半小时后）诶不是，我这怎么挂了啊？完了 IP 被 ban 了。</s></p>
+<p>于是，减线程，加延迟，用代理，挂服务器上跑了一天，再分发给一些 dalao。保守统计的话，怎么说也有 25w 的脏数据成功送到他服务器。</p>
+<figure data-type="image" tabindex="2"><img src="https://blog.xiaojin233.cn/post-images/1586842883769.png" alt="挂机填库" loading="lazy"></figure>
+<p>上图显示 302 是因为他会重定向，我手动关闭了自动重定向，以免对 QQ空间 产生影响。</p>
+<hr>
+<p>没错那家伙现在还没炸，如果他看到这篇文章了，那么请给他点赞。</p>
+<p>（别忘了给我也点赞）</p>
+<p>本文为本人原创，但是其他人好像也发现了这个网站，如有类似的，请不要质疑我是抄的。<br>
+本文仅在 <a href="https://www.bilibili.com/read/cv5607486">bilibili 专栏</a> &amp; Xiao_Jin's Blog 发表。转载需遵守 CC-BY-4.0。</p>
+
+            </div>
+            
+              <div class="tag-container">
+                
+                  <a href="https://blog.xiaojin233.cn/tag/WOfevWuOS/" class="tag">
+                    Python
+                  </a>
+                
+              </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://blog.xiaojin233.cn/xiao_jins-blog-kai-zhang-la/">
+                  <h3 class="post-title">
+                    Xiao_Jin&#39;s Blog 开张啦！
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+<script type="application/javascript">
+
+AOS.init();
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+  <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>
+    hljs.initHighlightingOnLoad()
+  </script>
+
+
+
+
+
+  </body>
+</html>
