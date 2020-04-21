@@ -8,7 +8,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/FortAwesome/Font-Awesome/css/all.min.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-<link rel="shortcut icon" href="https://blog.xiaojin233.cn/favicon.ico?v=1587458234899">
+<link rel="shortcut icon" href="https://blog.xiaojin233.cn/favicon.ico?v=1587459167604">
 <link rel="stylesheet" href="https://blog.xiaojin233.cn/styles/main.css">
 
 
@@ -41,7 +41,7 @@ TL, DR
   <div class="top-container" data-aos="fade-right">
     <div class="top-header-container">
       <a class="site-title-container" href="https://blog.xiaojin233.cn">
-        <img src="https://blog.xiaojin233.cn/images/avatar.png?v=1587458234899" class="site-logo">
+        <img src="https://blog.xiaojin233.cn/images/avatar.png?v=1587459167604" class="site-logo">
         <h1 class="site-title">Xiao_Jin&#39;s Blog</h1>
       </a>
       <div class="menu-btn" @click="menuVisible = !menuVisible">
@@ -164,7 +164,7 @@ TL, DR
 <p>怎么可能 ==</p>
 <hr>
 <h2 id="动态加载-sitekey">动态加载 sitekey</h2>
-<p>在大项目里，特别是前后端分离的项目里，你是绝对不可能把 sitekey 写死的。因为你不可能为你的每一个用户都单独改 sitekey，用户名总希望主动权在他们手里。</p>
+<p>在大项目里，特别是前后端分离的项目里，你是绝对不可能把 sitekey 写死的。因为你不可能为你的每一个用户都单独改 sitekey，用户们总希望主动权在他们手里。</p>
 <p>对于 PHP 来说，这并不值得烦恼。可以将 sitekey 放入数据库，需要时在后端渲染完成，返回给客户端就行了。如果你使用 Django/Flask，他们都使用 Jinja2 作为模板引擎，也可以像 PHP 那样轻松搞定。</p>
 <p>假设你的产品经理是个奇葩，他要求采用前后端分离的模式进行开发，你势必要用 Vue 来完成前端渲染。为了吃饭，你只好听他的。那么问题就来了，你该如何实现呢？</p>
 <p>聪明机智的你试图用 <code>v-bind:data-sitekey=&quot;siteKey&quot;</code> 的方式来完成数据绑定，从而让 reCAPTCHA 读取到信息。可事实证明这样不行，无论你怎么绑，这 reCAPTCHA 就是报错。</p>
