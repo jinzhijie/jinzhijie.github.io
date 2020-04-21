@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>使用 reCAPTCHA v2 时踩过的那些坑 | Xiao_Jin&#39;s Blog</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/FortAwesome/Font-Awesome/css/all.min.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://blog.xiaojin233.cn/favicon.ico?v=1587457660894">
+<link rel="stylesheet" href="https://blog.xiaojin233.cn/styles/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos/dist/aos.css" />
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-164019402-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-164019402-1');
+</script>
+
+
+    <meta name="description" content="说明
+本文全篇围绕「Google reCAPTCHA v2 复选框」的前端使用进行说明，后端别忘了要验证哦；
+由于 reCAPTCHA 在国内无法使用，请自行将域名替换为 https://www.recaptcha.net/
+TL, DR
+..." />
+    <meta name="keywords" content="前端,JS" />
+  </head>
+  <body>
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://blog.xiaojin233.cn">
+        <img src="https://blog.xiaojin233.cn/images/avatar.png?v=1587457660894" class="site-logo">
+        <h1 class="site-title">Xiao_Jin&#39;s Blog</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div>
+      
+        
+          <a href="/" class="site-nav">
+            首页
+          </a>
+        
+      
+        
+          <a href="/archives" class="site-nav">
+            归档
+          </a>
+        
+      
+        
+          <a href="/tags" class="site-nav">
+            标签
+          </a>
+        
+      
+        
+          <a href="/about" class="site-nav">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
+      
+        
+          <a class="social-link" href="https://github.com/jinzhijie" target="_blank">
+            <i class="fab fa-github"></i>
+          </a>
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+    <div class="site-description">
+      记录生活，分享有趣
+    </div>
+    <div class="site-footer">
+      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://blog.xiaojin233.cn/atom.xml" target="_blank">RSS</a>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <div class="post-detail">
+            <h2 class="post-title">使用 reCAPTCHA v2 时踩过的那些坑</h2>
+            <div class="post-date">2020-04-21</div>
+            
+              <div class="feature-container" style="background-image: url('https://blog.xiaojin233.cn/post-images/shi-yong-recaptcha-v2-shi-cai-guo-de-na-xie-keng.png')">
+              </div>
+            
+            <div class="post-content" v-pre>
+              <h2 id="说明">说明</h2>
+<p>本文全篇围绕「Google reCAPTCHA v2 复选框」的<strong>前端使用</strong>进行说明，后端别忘了要验证哦；<br>
+<strong>由于 reCAPTCHA 在国内无法使用，请自行将域名替换为 <code>https://www.recaptcha.net/</code></strong></p>
+<h2 id="tl-dr">TL, DR</h2>
+<p><a href="#%E6%9C%80%E7%BB%88%E6%96%B9%E6%A1%88">最终解决方案</a></p>
+<hr>
+<h2 id="官方-example">官方 Example</h2>
+<h3 id="automatically-render-the-recaptcha-widget"><a href="https://developers.google.com/recaptcha/docs/display#automatically_render_the_recaptcha_widget">Automatically render the reCAPTCHA widget</a></h3>
+<p>The easiest method for rendering the reCAPTCHA widget on your page is to include the necessary JavaScript resource and a <code>g-recaptcha</code> tag. The <code>g-recaptcha</code> tag is a DIV element with class name <code>g-recaptcha</code> and your site key in the <code>data-sitekey</code> attribute:</p>
+<blockquote>
+<h3 id="自动呈现-recaptcha-小部件">自动呈现 reCAPTCHA 小部件</h3>
+<p>在页面上呈现 reCAPTCHA 小部件的最简单方法是包括必要的 JavaScript 资源和 <code>g-recaptcha</code> 标记。<code>g-recaptcha</code> 标记是一个 DIV 元素，拥有名为 <code>g-recaptcha</code> 的 <code>class</code> 属性；并有一个 <code>data-sitekey</code> 属性，属性值为你的「网站密钥」：</p>
+</blockquote>
+<pre><code class="language-html">&lt;html&gt;
+  &lt;head&gt;
+    &lt;title&gt;reCAPTCHA demo: Simple page&lt;/title&gt;
+    &lt;script src=&quot;https://www.google.com/recaptcha/api.js&quot; async defer&gt;&lt;/script&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;form action=&quot;?&quot; method=&quot;POST&quot;&gt;
+      &lt;div class=&quot;g-recaptcha&quot; data-sitekey=&quot;your_site_key&quot;&gt;&lt;/div&gt;
+      &lt;br/&gt;
+      &lt;input type=&quot;submit&quot; value=&quot;Submit&quot;&gt;
+    &lt;/form&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<h2 id="更人性化的-example">更人性化的 Example</h2>
+<p>但是这个 Example 其实并不好，为此我进行了亿些优化：</p>
+<pre><code class="language-html">&lt;html&gt;
+  &lt;head&gt;
+    &lt;title&gt;reCAPTCHA demo: Great page&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;form action=&quot;?&quot; method=&quot;POST&quot;&gt;
+      &lt;div class=&quot;g-recaptcha&quot; data-sitekey=&quot;your_site_key&quot;&gt;&lt;/div&gt;
+      &lt;!-- 「your_site_key」需替换为你的「网站密钥」 --&gt;
+      &lt;br/&gt;
+      &lt;input type=&quot;submit&quot; value=&quot;Submit&quot;&gt;
+    &lt;/form&gt;
+    &lt;script src=&quot;https://www.recaptcha.net/recaptcha/api.js&quot; async defer&gt;&lt;/script&gt;
+    &lt;!-- 听说放在下面有助于加快加载速度，想想不是没道理 --&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<p>这样一来，就可以在国内正常使用 reCAPTCHA 了。</p>
+<p>你肯定要问：<strong>就这？</strong></p>
+<p>怎么可能 ==</p>
+<hr>
+<h2 id="动态加载-sitekey">动态加载 sitekey</h2>
+<p>在大项目里，特别是前后端分离的项目里，你是绝对不可能把 sitekey 写死的。因为你不可能为你的每一个用户都单独改 sitekey，用户名总希望主动权在他们手里。</p>
+<p>对于 PHP 来说，这并不值得烦恼。可以将 sitekey 放入数据库，需要时在后端渲染完成，返回给客户端就行了。如果你使用 Django/Flask，他们都使用 Jinja2 作为模板引擎，也可以像 PHP 那样轻松搞定。</p>
+<p>假设你的产品经理是个奇葩，他要求采用前后端分离的模式进行开发，你势必要用 Vue 来完成前端渲染。为了吃饭，你只好听他的。那么问题就来了，你该如何实现呢？</p>
+<p>聪明机智的你试图用 <code>v-bind:data-sitekey=&quot;siteKey&quot;</code> 的方式来完成数据绑定，从而让 reCAPTCHA 读取到信息。可事实证明这样不行，无论你怎么绑，这 reCAPTCHA 就是报错。</p>
+<p>幸好，reCAPTCHA 提供了几个 Javascript API：</p>
+<pre><code class="language-js">grecaptcha.render(
+container,
+parameters
+)
+</code></pre>
+<p>Renders the container as a reCAPTCHA widget and returns the ID of the newly created widget.<br>
+container<br>
+The HTML element to render the reCAPTCHA widget.  Specify either the ID of the container (string) or the DOM element itself.<br>
+parameters<br>
+An object containing parameters as key=value pairs, for example, <code>{&quot;sitekey&quot;: &quot;your_site_key&quot;, &quot;theme&quot;: &quot;light&quot;}</code>.</p>
+<blockquote>
+<p>将容器呈现为 reCAPTCHA 小部件，并返回新创建的小部件的 ID。<br>
+<strong>container</strong><br>
+呈现 reCAPTCHA 小部件的 HTML 元素。指定容器的 ID（字符串）或 DOM 元素本身。<br>
+<strong>parameters</strong><br>
+一个包含参数作为键值对的对象，例如<code>{&quot;sitekey&quot;: &quot;your_site_key&quot;, &quot;theme&quot;: &quot;light&quot;}</code>。</p>
+</blockquote>
+<p>根据这个 API，可以写出以下代码：</p>
+<p><strong>HTML</strong></p>
+<pre><code class="language-html">&lt;html&gt;
+  &lt;head&gt;
+    &lt;title&gt;reCAPTCHA demo: Great page&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;form action=&quot;?&quot; method=&quot;POST&quot;&gt;
+      &lt;div class=&quot;g-recaptcha&quot; id=&quot;recaptcha&quot;&gt;&lt;/div&gt;
+      &lt;br/&gt;
+      &lt;input type=&quot;submit&quot; value=&quot;Submit&quot;&gt;
+    &lt;/form&gt;
+    &lt;script src=&quot;https://www.recaptcha.net/recaptcha/api.js&quot; async defer&gt;&lt;/script&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<p><strong>Javascript</strong></p>
+<pre><code class="language-js">grecaptcha.render(
+                'recaptcha',
+                { &quot;sitekey&quot;: secret }
+            )
+</code></pre>
+<p>尝试过后，发现可以使用！但是，好景不长。</p>
+<p>有时可以有时又报错。<s>（营销号警告</s></p>
+<hr>
+<h3 id="大家都在聊的代码报错是什么梗真相令人震惊">大家都在聊的代码报错是什么梗？真相令人震惊！</h3>
+<p>你知道代码报错吗？代码报错最近为什么这么火？大家都知道，现代社会中随着人们生活水平的提高，代码报错如今也成为了人们茶余饭后的谈资。相信大家对代码报错都很熟悉，代码报错就是我们每天都会经常遇到的，但是代码报错是怎么回事呢？下面就让小编带大家一起了解一下代码报错是怎么回事吧。</p>
+<p>代码报错其实就是代码报错，目前在网上拥有非常高的热度。大家可能会感到很惊讶，代码报错为什么是这样的？代码报错究竟为什么火起来了呢？但事实就是这样，小编也感到非常惊讶。</p>
+<p>好了，以上就是代码报错是什么，代码报错为什么火的具体内容。欢迎大家在评论区和小编一起讨论，畅所欲言。</p>
+<hr>
+<h2 id="最终方案">最终方案</h2>
+<p>原来，reCAPTCHA 的 JS 还没有加载完成，我们自己的 JS 就先调用它了，不报错才怪！那我该怎么办？难道要一直去检测 reCAPTCHA 有没有加载完成吗？</p>
+<p>当然不需要，作为 Google 的开发者，他们留了一个 callback 给我们，叫 <code>onload</code>，作为 param 在加载 JS 的时候传入。在 reCAPTCHA 加载完毕后，会调用传入的函数。</p>
+<p>例子：</p>
+<pre><code class="language-html">&lt;script src=&quot;https://www.recaptcha.net/recaptcha/api.js?onload=grecaptcha&quot; async defer&gt;&lt;/script&gt;
+</code></pre>
+<p>会调用 <code>grecaptcha()</code> 这个函数，而这个函数是我们预先写好的。</p>
+<p>直接拿我的实际代码</p>
+<pre><code class="language-js">function grecaptcha() {
+    axios
+        .get(`/api/recaptcha/getSiteKey`)
+        .then(response =&gt; {
+            grecaptcha.render(
+                'recaptcha',  // 传入 ID 时不要 # 号
+                { &quot;sitekey&quot;: response.data };
+            )
+        })
+        .catch(error =&gt; {
+            console.log(error);
+        });
+}
+</code></pre>
+<blockquote>
+<p>通过 axios 向后端请求得到 sitekey</p>
+</blockquote>
+<p>但我尝试一下还是不行，原因就是在于没有 <code>render</code> 参数！这个参数指定了是从 DIV 元素的 <code>data-sitekey</code> 中读取，还是用 JS 来渲染（显式加载）。<br>
+在这里我们需要显式加载，因此传入值为 <code>explicit</code>，代码就变成了这个样子：</p>
+<pre><code class="language-html">&lt;script src=&quot;https://www.recaptcha.net/recaptcha/api.js?onload=grecaptcha&amp;render=explicit&quot; async defer&gt;&lt;/script&gt;
+</code></pre>
+<p>JS 不变，大功告成！</p>
+<hr>
+<p>想要了解更多？那就去 <a href="https://developers.google.com/recaptcha/docs/display">Google Developers</a> 吧！</p>
+<p><em>Author: Xiao_Jin</em><br>
+<em>CC-BY-4.0</em></p>
+
+            </div>
+            
+              <div class="tag-container">
+                
+                  <a href="https://blog.xiaojin233.cn/tag/ZUIJDs4cN/" class="tag">
+                    前端
+                  </a>
+                
+                  <a href="https://blog.xiaojin233.cn/tag/Xk2qCSNLEd/" class="tag">
+                    JS
+                  </a>
+                
+              </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://blog.xiaojin233.cn/ji-yi-ci-dui-qq-dao-hao-pian-zi-de-fan-ji/">
+                  <h3 class="post-title">
+                    记一次对 QQ 盗号骗子的反击
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/aos/dist/aos.js"></script>
+<script type="application/javascript">
+
+AOS.init();
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+  <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>
+    hljs.initHighlightingOnLoad()
+  </script>
+
+
+
+
+
+  </body>
+</html>
