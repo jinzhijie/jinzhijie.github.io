@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://blog.xiaojin233.cn</id>
     <title>Xiao_Jin&apos;s Blog</title>
-    <updated>2020-04-23T08:18:08.071Z</updated>
+    <updated>2020-04-23T08:19:56.598Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://blog.xiaojin233.cn"/>
     <link rel="self" href="https://blog.xiaojin233.cn/atom.xml"/>
@@ -12,8 +12,8 @@
     <rights>All rights reserved 2020, Xiao_Jin&apos;s Blog</rights>
     <entry>
         <title type="html"><![CDATA[新域名 uuuu.work]]></title>
-        <id>https://blog.xiaojin233.cn/xin-yu-ming-uuuuwork/</id>
-        <link href="https://blog.xiaojin233.cn/xin-yu-ming-uuuuwork/">
+        <id>https://blog.xiaojin233.cn/free-domain/</id>
+        <link href="https://blog.xiaojin233.cn/free-domain/">
         </link>
         <updated>2020-04-23T07:59:37.000Z</updated>
     </entry>
