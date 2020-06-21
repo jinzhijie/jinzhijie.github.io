@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>Vue Router 使用感受 | Xiao_Jin&#39;s Blog</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/FortAwesome/Font-Awesome/css/all.min.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://blog.xiaojin233.cn/favicon.ico?v=1592717213837">
+<link rel="stylesheet" href="https://blog.xiaojin233.cn/styles/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos/dist/aos.css" />
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-164019402-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-164019402-1');
+</script>
+
+
+    <meta name="description" content="前言
+自从我入前端的坑，我一直使用的都是 Vue.js，理所当然的，我就了解到了 Vue Router。
+本文将概括性地讲述我在使用的过程中遇到的一些使用感受，仅代表我自己的观点。
+What's Vue Router?
+Vue Router..." />
+    <meta name="keywords" content="" />
+  </head>
+  <body>
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://blog.xiaojin233.cn">
+        <img src="https://blog.xiaojin233.cn/images/avatar.png?v=1592717213837" class="site-logo">
+        <h1 class="site-title">Xiao_Jin&#39;s Blog</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div>
+      
+        
+          <a href="/" class="site-nav">
+            首页
+          </a>
+        
+      
+        
+          <a href="/archives" class="site-nav">
+            归档
+          </a>
+        
+      
+        
+          <a href="/tags" class="site-nav">
+            标签
+          </a>
+        
+      
+        
+          <a href="/about" class="site-nav">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
+      
+        
+          <a class="social-link" href="https://github.com/jinzhijie" target="_blank">
+            <i class="fab fa-github"></i>
+          </a>
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+    <div class="site-description">
+      记录生活，分享有趣
+    </div>
+    <div class="site-footer">
+      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://blog.xiaojin233.cn/atom.xml" target="_blank">RSS</a>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <div class="post-detail">
+            <h2 class="post-title">Vue Router 使用感受</h2>
+            <div class="post-date">2020-06-21</div>
+            
+              <div class="feature-container" style="background-image: url('https://cn.vuejs.org/images/logo.png')">
+              </div>
+            
+            <div class="post-content" v-pre>
+              <h1 id="前言">前言</h1>
+<p>自从我入前端的坑，我一直使用的都是 Vue.js，理所当然的，我就了解到了 Vue Router。<br>
+本文将概括性地讲述我在使用的过程中遇到的一些使用感受，仅代表我自己的观点。</p>
+<h1 id="whats-vue-router">What's Vue Router?</h1>
+<p><a href="https://router.vuejs.org/zh/">Vue Router</a> 是 <a href="https://cn.vuejs.org/">Vue.js</a> 官方的路由管理器。它和 Vue.js 的核心深度集成，让构建单页面应用变得易如反掌。包含的功能有：</p>
+<ul>
+<li>嵌套的路由/视图表</li>
+<li>模块化的、基于组件的路由配置</li>
+<li>路由参数、查询、通配符</li>
+<li>基于 Vue.js 过渡系统的视图过渡效果</li>
+<li>细粒度的导航控制</li>
+<li>带有自动激活的 CSS class 的链接</li>
+<li>HTML5 历史模式或 hash 模式，在 IE9 中自动降级</li>
+<li>自定义的滚动条行为</li>
+</ul>
+<h1 id="why-vue-router">Why Vue Router?</h1>
+<p>我使用的是 hash 模式。该模式通过在 URL 后加入 hash 达到路由的效果，在 HTTP 请求时，hash 并不会包括在请求 URL 内。因此通常被用来在页面中定位一些内容。</p>
+<h2 id="配置路由">配置路由</h2>
+<pre><code class="language-js">// src/router/index.js
+import Vue from 'vue'
+import VueRouter from 'vue-router'
+
+Vue.use(VueRouter)
+
+const routes = [
+  {
+    path: '/',
+    redirect: { name: 'Post' }
+  },
+  {
+    path: '/:pasteid(.{24})',
+    redirect: to =&gt; {
+      const { params } = to;
+      return { name: 'Viewer', params: { pasteId: params.pasteid } };
+    }
+  },
+  {
+    path: '/post',
+    name: 'Post',
+    component: () =&gt; import('../views/Post.vue')
+  },
+  {
+    path: '/search',
+    name: 'Search',
+    component: () =&gt; import('../views/Search.vue')
+  },
+  {
+    path: '/view/:pasteId',
+    name: 'Viewer',
+    component: () =&gt; import('../views/Viewer.vue')
+  },
+  {
+    path: '*',
+    redirect: { name: 'Search' }
+  }
+]
+
+const router = new VueRouter({
+  routes
+})
+
+export default router
+</code></pre>
+<p><code>:pasteId</code> 表示一个参数，包括在 Vue 子组件内的 <code>this.$route.params</code> 中。值得一提的是，Vue Router 使用 <a href="https://github.com/pillarjs/path-to-regexp/tree/v1.7.0">path-to-regexp</a> 作为路径匹配引擎，所以支持很多高级的匹配模式，例如：可选的动态路径参数、匹配零个或多个、一个或多个，甚至是<strong>自定义正则匹配</strong>。</p>
+<blockquote>
+<p><code>path</code> 的 <code>()</code> 内的内容为正则，修饰括号前的 param。当然也可以直接作为 <code>path</code> 的一部分。</p>
+</blockquote>
+<p>在这个例子中，我使用了动态的方式加载组件。在这里我引用 @GPlane 大佬的话解释一下：</p>
+<blockquote>
+<p>静态、动态 <code>import</code> 的概念在整个前端都是适用的，与 Vue 和 Vue Router 没什么关系。</p>
+<p>放在顶部的静态<code>import</code>，也就是不管有没有访问这个页面，这个组件都会被加载；像“函数调用”一样地使用 <code>import</code>（本质上并不是函数调用）是动态 <code>import</code>，这里导入的组件会被 <code>webpack</code> 拆分单独一个 <code>chunk</code>（我不知道该怎样翻译……），等到真正访问这个路由的时候才会加载这个组件。<br>
+静态 <code>import</code> 适用于比较小的组件，因为拆分一个 <code>chunk</code> 后访问时会消耗一次 HTTP 请求；而大的组件就可以考虑使用动态 <code>import</code>，这样可以避免直接加载的大组件。</p>
+<p>两种 <code>import</code> 方式的意义和作用是不同的。</p>
+</blockquote>
+<h2 id="路由导航">路由导航</h2>
+<p>我使用的都是编程式导航，也就是 <code>this.$router.push()</code> 方法。</p>
+<p>该方法的参数可以是一个字符串路径，或者一个描述地址的对象。例如：</p>
+<pre><code class="language-js">// 对象
+router.push({ name: &quot;Search&quot; })
+// 命名的路由 + params
+router.push({ name: 'Viewer', params: { pasteId: 'xxx' }})
+</code></pre>
+<h2 id="重定向和别名">重定向和别名</h2>
+<h3 id="重定向">重定向</h3>
+<p>（我自己的实例）</p>
+<pre><code class="language-js">const routes = [
+  {
+    path: '/',
+    redirect: { name: 'Post' }
+  },
+  {
+    path: '/:pasteid(.{24})',
+    redirect: to =&gt; {
+      const { params } = to;
+      return { name: 'Viewer', params: { pasteId: params.pasteid } };
+    }
+  }
+]
+</code></pre>
+<p>在此例的第二个中，演示了动态返回重定向目标，算是比较复杂的了。当然，通常情况下，你只要使用第一个就行啦。</p>
+<h3 id="别名">别名</h3>
+<p><em>（以下选自官方文档）</em></p>
+<p>“重定向”的意思是，当用户访问 <code>/a</code> 时，URL 将会被替换成 <code>/b</code>，然后匹配路由为 <code>/b</code>，那么“别名”又是什么呢？</p>
+<p><code>/a</code> 的别名是 <code>/b</code>，意味着，当用户访问 <code>/b</code> 时，URL 会保持为 <code>/b</code>，但是路由匹配则为 <code>/a</code>，就像用户访问 <code>/a</code> 一样。</p>
+<p>上面对应的路由配置为：</p>
+<pre><code class="language-js">const router = new VueRouter({
+  routes: [
+    { path: '/a', component: A, alias: '/b' }
+  ]
+})
+</code></pre>
+<p>“别名”的功能让你可以自由地将 UI 结构映射到任意的 URL，而不是受限于配置的嵌套路由结构。</p>
+<h1 id="最后">最后</h1>
+<p>更多的功能和示例请前往 <a href="https://router.vuejs.org/zh/">Vue Router 中文文档</a> 查看。</p>
+
+            </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://blog.xiaojin233.cn/qq-bei-feng-liao/">
+                  <h3 class="post-title">
+                    QQ 被封了？
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/aos/dist/aos.js"></script>
+<script type="application/javascript">
+
+AOS.init();
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+  <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>
+    hljs.initHighlightingOnLoad()
+  </script>
+
+
+
+
+
+  </body>
+</html>

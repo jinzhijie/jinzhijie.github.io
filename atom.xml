@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://blog.xiaojin233.cn</id>
     <title>Xiao_Jin&apos;s Blog</title>
-    <updated>2020-06-06T05:59:42.489Z</updated>
+    <updated>2020-06-21T05:27:16.355Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://blog.xiaojin233.cn"/>
     <link rel="self" href="https://blog.xiaojin233.cn/atom.xml"/>
@@ -10,6 +10,13 @@
     <logo>https://blog.xiaojin233.cn/images/avatar.png</logo>
     <icon>https://blog.xiaojin233.cn/favicon.ico</icon>
     <rights>All rights reserved 2020, Xiao_Jin&apos;s Blog</rights>
+    <entry>
+        <title type="html"><![CDATA[Vue Router 使用感受]]></title>
+        <id>https://blog.xiaojin233.cn/vue-router-shi-yong-gan-shou/</id>
+        <link href="https://blog.xiaojin233.cn/vue-router-shi-yong-gan-shou/">
+        </link>
+        <updated>2020-06-21T04:48:49.000Z</updated>
+    </entry>
     <entry>
         <title type="html"><![CDATA[QQ 被封了？]]></title>
         <id>https://blog.xiaojin233.cn/qq-bei-feng-liao/</id>
